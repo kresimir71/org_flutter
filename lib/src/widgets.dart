@@ -7,6 +7,8 @@ import 'package:org_flutter/src/span.dart';
 import 'package:org_flutter/src/theme.dart';
 import 'package:org_flutter/src/util/util.dart';
 import 'package:org_parser/org_parser.dart';
+import 'package:cards22/example_org_flutter.dart';
+
 
 /// The root of the actual Org Mode document itself. Assumes that
 /// [OrgRootWidget] and [OrgController] are available in the build context. See
@@ -316,6 +318,9 @@ class OrgContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget? hookResult = orgContentWidgetBuildHook(content, context);
+    if ( hookResult != null) return hookResult;
+ 
     return FancySpanBuilder(
       builder: (context, spanBuilder) => Text.rich(
         spanBuilder.build(
